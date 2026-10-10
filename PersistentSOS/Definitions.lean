@@ -75,6 +75,25 @@ noncomputable def minimizingRadius (σ a b : ℝ) : ℝ :=
 noncomputable def minimumValue (σ a b : ℝ) : ℝ :=
   -(b * minimizingRadius σ a b ^ 3 + a * minimizingRadius σ a b ^ 2) / 4
 
+/-- A second literal rational cubic selecting the positive first coordinate axis. -/
+noncomputable def uniqueCubicPoly : Poly :=
+  MvPolynomial.C (1 / 1001) * (1000 * cubicPoly + MvPolynomial.X 0 * qPoly)
+
+/-- Evaluation of the cubic with a unique sphere maximizer. -/
+noncomputable def uniqueCubic (z : Fin 14 → ℝ) : ℝ := MvPolynomial.eval z uniqueCubicPoly
+
+/-- Quartic regularization using the cubic with a unique sphere maximizer. -/
+noncomputable def uniqueQuarticPoly (σ a b : ℝ) : Poly :=
+  MvPolynomial.C (σ / 4) * qPoly ^ 2 - MvPolynomial.C (a / 2) * qPoly
+    - MvPolynomial.C b * uniqueCubicPoly
+
+/-- Evaluation of the quartic with a unique global minimizer. -/
+noncomputable def uniqueObjective (σ a b : ℝ) (z : Fin 14 → ℝ) : ℝ :=
+  MvPolynomial.eval z (uniqueQuarticPoly σ a b)
+
+/-- The strict rational moment separation for the selected cubic. -/
+noncomputable def uniqueSeparation : ℝ := 132860603 / 143000000000
+
 
 @[simp] theorem Q_eq_sum (z : Fin 14 → ℝ) : Q z = ∑ i, z i ^ 2 := by
   simp [Q, qPoly, map_sum]

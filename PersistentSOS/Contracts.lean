@@ -1,6 +1,7 @@
 module
 
 public import PersistentSOS.Main
+public import PersistentSOS.UniqueMain
 
 @[expose] public section
 namespace PersistentSOS
@@ -59,5 +60,25 @@ theorem minimumValue_definition (σ a b : ℝ) : minimumValue σ a b =
 
 /-- Exact rational separation constant. -/
 theorem separation_definition : separation = 753357629 / 500000000000 := rfl
+
+/-- Literal rational coefficients defining the companion cubic. -/
+theorem uniqueCubicPoly_definition : uniqueCubicPoly =
+    MvPolynomial.C (1 / 1001) * (1000 * cubicPoly + MvPolynomial.X 0 * qPoly) := rfl
+
+/-- The companion cubic uses ordinary polynomial evaluation. -/
+theorem uniqueCubic_definition (z : Fin 14 → ℝ) :
+    uniqueCubic z = MvPolynomial.eval z uniqueCubicPoly := rfl
+
+/-- Literal quartic regularization of the companion cubic. -/
+theorem uniqueQuarticPoly_definition (σ a b : ℝ) : uniqueQuarticPoly σ a b =
+    MvPolynomial.C (σ / 4) * qPoly ^ 2 - MvPolynomial.C (a / 2) * qPoly
+      - MvPolynomial.C b * uniqueCubicPoly := rfl
+
+/-- The companion objective uses ordinary polynomial evaluation. -/
+theorem uniqueObjective_definition (σ a b : ℝ) (z : Fin 14 → ℝ) :
+    uniqueObjective σ a b z = MvPolynomial.eval z (uniqueQuarticPoly σ a b) := rfl
+
+/-- Exact rational separation for the companion cubic. -/
+theorem uniqueSeparation_definition : uniqueSeparation = 132860603 / 143000000000 := rfl
 
 end PersistentSOS

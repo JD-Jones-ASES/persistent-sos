@@ -1,13 +1,13 @@
 # Verification contract
 
-The complete formal package contains **19 compared contracts** and **235
+The complete formal package contains **35 compared contracts** and **272
 supporting declarations** in the transitive-axiom inventory. The independent
 Challenge imports only Mathlib; deliberate statement holes occur there alone.
 The Solution and implementation contain no proof holes or added axioms.
 
 The [exact-commit workflow](https://github.com/JD-Jones-ASES/persistent-sos/actions/workflows/verify.yml)
 records each candidate SHA and both Linux job outcomes. The annotated tag
-`verified/2026-10-10` is created only after both jobs pass; its annotation
+`verified/2026-10-10-unique-minimizer` is created only after both jobs pass; its annotation
 records the exact source revision and successful run URL. Match the selected
 revision to that evidence. A verification tag does not imply submission.
 
@@ -15,7 +15,12 @@ The principal contract uses the literal 25-term polynomial in
 ordinary real multivariate polynomials. It includes the global sphere bound,
 attained global minimum, unrestricted polynomial SOS exclusion, strict
 quantitative SOS separation, and the stationary negative-definite Hessian and complete minimizer locus.
-Every positive real regularization parameter is covered.
+Every positive real regularization parameter is covered. The explicit
+companion cubic $`\widehat C=(1000C+tQ)/1001`$ has a unique sphere maximizer,
+and its regularized quartic has a unique global minimizer with a
+positive-definite Hessian there. The Hessian contract computes the actual
+second polynomial partial derivatives and proves ordinary `Matrix.PosDef`.
+Its stationary origin retains the Hessian $`-aI`$.
 
 ## Exact witness
 
@@ -39,6 +44,12 @@ expansion proves positivity on **every** quadratic square. Positivity and
 $`L((Q-1)^2)=0`$ additionally prove $`L((Q-1)h)=0`$ for every quadratic $`h`$.
 No probability-measure assumption or floating-point tolerance is used.
 
+The same functional has $`L(tQ)=L(t)=423308963/1000000000`$ and
+$`L(\widehat C)=143132860603/143000000000`$. The companion moment contract
+supplies both original and modified cubic values for one common normalized
+positive functional. Its separation is exactly
+$`132860603/143000000000`$. No moment or PSD certificate data changed.
+
 The primary checker uses monomial tuples and fraction-free elimination;
 the independent checker uses exponent vectors and rational Schur complements.
 Controls reject altered normalization, nonpositive matrices, inconsistent
@@ -48,6 +59,13 @@ certificate hash and compares every generated Lean file without modifying it.
 A separate Lean negative-control script compiles an unchanged block, then
 requires rejection of an altered moment entry and a negative terminal pivot
 at the arithmetic proof steps; process or import failures do not count.
+
+`scripts/check_unique_minimizer.py` independently specifies all 25 modified
+coefficients and verifies all 196 Hessian entries by exact rational symbolic
+differentiation. It checks the radial identities and rejects changed
+curvature, a nonzero mixed Hessian entry and an altered first moment.
+It runs both ordinarily and under Python optimization. These checks support
+the evidence; the explicit companion theorem is proved separately in Lean.
 
 ## Pinned environment and final gate
 
@@ -83,16 +101,27 @@ submission, registry acceptance, priority and human review.
 | `sphere_moment_gap` | A positive truncated polynomial functional with all sphere localizers and strict cubic value. |
 | `stationary_origin` | Every first polynomial partial derivative vanishes at zero. |
 | `hessian_origin` | Every second partial derivative equals the corresponding entry of $`-aI`$. |
+| `unique_cubic_abs_le` | Sharp global bound for the companion cubic. |
+| `unique_cubic_unit_maximizer` | Its unit-sphere maximum occurs only at the first coordinate unit vector. |
+| `unique_objective_minimizer` | Complete unique global minimizer statement for all positive parameters. |
+| `unique_persistent_failure` | Actual unique global minimum, positive-definite Hessian, and ordinary SOS exclusion. |
+| `unique_minimum_shift_nonnegative` | The companion polynomial's exact minimum shift is nonnegative everywhere. |
+| `unique_quantitative_sos_gap` | Exact rational separation for every companion SOS lower bound. |
+| `unique_sphere_moment_gap` | One normalized positive functional certifies both cubics and all sphere localizers. |
+| `unique_stationary_origin` | Every first polynomial partial derivative still vanishes at zero. |
+| `unique_hessian_origin` | The companion Hessian at zero remains $`-aI`$. |
+| `unique_hessian_minimizer` | All entries of the actual Hessian equal the explicit diagonal formula. |
+| `unique_hessian_posDef` | Ordinary matrix positive definiteness at the unique minimizer. |
 
-Eight definition contracts fix the literal cubic, Euclidean norm polynomial,
+Thirteen definition contracts fix the literal cubics, Euclidean norm polynomial,
 ordinary SOS predicate, objective polynomial, evaluation, minimizing radius,
-minimum and rational separation. The quantitative bound is valid even for
+minimum and rational separations. The quantitative bounds are valid even for
 arbitrary real cubic strength; the strict failure and full minimizer statements
 assume positive cubic strength.
 
 ## Local verification
 
-The complete package builds with 9,006 Lake jobs. The exact certificate replay,
+The complete package builds all 32 Lean source modules. The exact certificate replay,
 independent replay and generator comparison pass ordinarily and under Python
 optimization. Both Lean rejection controls pass. Independent agents checked
 the written proof, all monomial values and matrix identities, ordinary SOS
@@ -107,6 +136,9 @@ separate fresh runner builds every project module at the same revision.
 
 Coefficient-neighborhood robustness and large-parameter asymptotics in
 [Applications.md](Applications.md) remain written supplements. All minimizer
-geometry is included in the formal contract. No optimal SOS value,
-minimal-dimension theorem, higher-order hierarchy result, public release,
-submission, registration or human specialist review is implied.
+geometry is included in the formal contract, together with the explicit
+unique nondegenerate minimizer theorem. The continuous selection family,
+general selection principle and the further deductions in
+[RadialConsequences.md](RadialConsequences.md) remain written supplements.
+No optimal SOS value, minimal-dimension theorem, higher-order hierarchy
+result, submission, registration or human specialist review is implied.

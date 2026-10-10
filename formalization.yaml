@@ -11,7 +11,10 @@ project:
     quartic has an explicitly attained global minimum whose shift is not a
     sum of squares of real polynomials. A quantitative strict separation bounds
     every SOS lower bound. The polynomial is stationary at zero with negative
-    definite Hessian. The exact sphere maximizers are classified. The proof
+    definite Hessian. A second explicit 25-term cubic, certified by the same
+    rational functional, gives a unique global minimizer with positive-definite
+    Hessian there and persistent SOS failure for all positive parameters.
+    The exact sphere maximizers are classified. The proof
     combines an elementary quadratic-map contraction, a rational moment
     certificate, an ordinary SOS degree bound and an all-parameter radial
     factorization.
@@ -28,7 +31,9 @@ status:
     Literal real multivariate polynomial statements for the displayed cubic,
     all positive real parameters, an attained global minimum, unrestricted
     real polynomial sums of squares, quantitative separation and stationary
-    Hessian. Exact verification status is recorded in VERIFICATION.md.
+    Hessian. The explicit companion theorem includes a unique global minimizer,
+    its actual polynomial Hessian and ordinary matrix positive definiteness.
+    Exact verification status is recorded in VERIFICATION.md.
   axioms: [propext, Classical.choice, Quot.sound]
 
 sources:
@@ -37,6 +42,11 @@ sources:
     relationship: other
     location: Proof.md
     note: The explicit theorem and proof are presented in this repository.
+  - title: Persistent failure with a unique nondegenerate global minimizer
+    type: original-proof
+    relationship: other
+    location: UniqueMinimizer.md
+    note: The explicit companion theorem and general written selection principle.
   - title: Sufficiently Regularized Nonnegative Quartic Polynomials are Sum-of-Squares
     type: paper
     relationship: background
@@ -74,10 +84,17 @@ automation:
         semidefinite optimization guided discovery, while the retained proof
         uses exact rational data checked in Lean. Independent Python replays
         support the evidence without becoming proof premises. See Disclosure.md.
+    - method: mathematical consultation
+      models: [GPT-6 Pro]
+      framework: ChatGPT
+      notes: >-
+        Supplied automated review, the unique nondegenerate minimizer construction,
+        and further radial consequences. Codex independently checked the arguments
+        and formalized the explicit companion theorem.
 
 review:
   status: agent-reviewed
-  reviewers: [OpenAI Codex agents]
+  reviewers: [OpenAI Codex agents, GPT-6 Pro]
   notes: >-
     Separate automated reviews cover the analytic sphere bound, ordinary SOS
     degree bridge, moment certificate and formal contract. Exact mechanical
@@ -87,5 +104,6 @@ review:
 limitations:
   - The optimal SOS lower bound and smallest possible dimension are not determined.
   - Coefficient-neighborhood robustness and large-parameter asymptotics are written supplements.
+  - The continuous selection family, general selection principle, optimized witness scaling, and flat- and positive-Hessian consequences are written supplements.
   - Higher-order SOS hierarchy behavior is not determined.
   - Worldwide priority and human specialist review are not established.

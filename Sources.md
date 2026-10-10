@@ -77,6 +77,15 @@ witness, and the resulting all-positive-parameter failure of Euclidean
 quartic SOS exactness. The parameter extension, minimizer geometry and
 coefficient-neighborhood argument are derived in this repository.
 
+The companion construction $`\widehat C=(1000C+tQ)/1001`$ keeps the same
+support and rational witness, while selecting a unique global minimizer
+with positive-definite Hessian. The continuous selection principle and
+further radial consequences are derived in the accompanying proofs.
+Positive curvature at the minimizer is distinct from positive curvature
+at the origin: the companion still has $`H=-aI`$ in the regularization
+question. The written positive-Hessian failure band is finite and does
+not contradict eventual exactness under that separate hypothesis.
+
 The source check did not identify this precise example. That observation
 is not evidence of worldwide priority. Optimal SOS value, smallest possible
 dimension and higher-order SOS hierarchy behavior are not determined.

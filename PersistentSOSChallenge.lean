@@ -84,6 +84,25 @@ noncomputable def minimumValue (σ a b : ℝ) : ℝ :=
   -(b * minimizingRadius σ a b ^ 3 + a * minimizingRadius σ a b ^ 2) / 4
 
 
+/-- A second literal rational cubic selecting the positive first coordinate axis. -/
+noncomputable def uniqueCubicPoly : Poly :=
+  MvPolynomial.C (1 / 1001) * (1000 * cubicPoly + MvPolynomial.X 0 * qPoly)
+
+/-- Evaluation of the cubic with a unique sphere maximizer. -/
+noncomputable def uniqueCubic (z : Fin 14 → ℝ) : ℝ := MvPolynomial.eval z uniqueCubicPoly
+
+/-- Quartic regularization using the cubic with a unique sphere maximizer. -/
+noncomputable def uniqueQuarticPoly (σ a b : ℝ) : Poly :=
+  MvPolynomial.C (σ / 4) * qPoly ^ 2 - MvPolynomial.C (a / 2) * qPoly
+    - MvPolynomial.C b * uniqueCubicPoly
+
+/-- Evaluation of the quartic with a unique global minimizer. -/
+noncomputable def uniqueObjective (σ a b : ℝ) (z : Fin 14 → ℝ) : ℝ :=
+  MvPolynomial.eval z (uniqueQuarticPoly σ a b)
+
+/-- The strict rational moment separation for the selected cubic. -/
+noncomputable def uniqueSeparation : ℝ := 132860603 / 143000000000
+
 /-- Exact strict gap between the moment value and sphere maximum. -/
 noncomputable def separation : ℝ := 753357629 / 500000000000
 
@@ -178,5 +197,78 @@ theorem minimumValue_definition (σ a b : ℝ) : minimumValue σ a b =
     -(b*minimizingRadius σ a b^3+a*minimizingRadius σ a b^2)/4 := by sorry
 
 theorem separation_definition : separation = 753357629 / 500000000000 := by sorry
+
+theorem unique_cubic_abs_le (z : Fin 14 → ℝ) : |uniqueCubic z| ≤ radius z ^ 3 := by sorry
+
+theorem unique_cubic_unit_maximizer (z : Fin 14 → ℝ) (hQ : Q z = 1) :
+    uniqueCubic z = 1 ↔ z = axis 1 := by sorry
+
+theorem unique_objective_minimizer {σ a b : ℝ} (hσ : 0 < σ)
+    (ha : 0 < a) (hb : 0 < b) (z : Fin 14 → ℝ) :
+    uniqueObjective σ a b z = minimumValue σ a b ↔
+      z = axis (minimizingRadius σ a b) := by sorry
+
+theorem unique_persistent_failure {σ a b : ℝ} (hσ : 0 < σ) (ha : 0 < a) (hb : 0 < b) :
+    (∀ z : Fin 14 → ℝ, minimumValue σ a b ≤ uniqueObjective σ a b z) ∧
+    (∀ z : Fin 14 → ℝ, uniqueObjective σ a b z = minimumValue σ a b ↔
+      z = axis (minimizingRadius σ a b)) ∧
+    Matrix.PosDef (fun i j : Fin 14 =>
+      MvPolynomial.eval (axis (minimizingRadius σ a b))
+        (MvPolynomial.pderiv j (MvPolynomial.pderiv i (uniqueQuarticPoly σ a b)))) ∧
+    ¬ IsSOS (uniqueQuarticPoly σ a b - MvPolynomial.C (minimumValue σ a b)) := by sorry
+
+theorem unique_minimum_shift_nonnegative {σ a b : ℝ} (hσ : 0 < σ) (ha : 0 < a)
+    (hb : 0 < b) (z : Fin 14 → ℝ) :
+    0 ≤ MvPolynomial.eval z
+      (uniqueQuarticPoly σ a b - MvPolynomial.C (minimumValue σ a b)) := by sorry
+
+theorem unique_quantitative_sos_gap {σ a b γ : ℝ} (hσ : 0 < σ) (ha : 0 < a)
+    (hsos : IsSOS (uniqueQuarticPoly σ a b - MvPolynomial.C γ)) :
+    γ ≤ minimumValue σ a b - b * uniqueSeparation * minimizingRadius σ a b ^ 3 := by sorry
+
+theorem unique_sphere_moment_gap : ∃ L : Poly →ₗ[ℝ] ℝ,
+    L 1 = 1 ∧ L qPoly = 1 ∧ L (qPoly ^ 2) = 1 ∧
+    (∀ h : Poly, h.totalDegree ≤ 2 → 0 ≤ L (h ^ 2)) ∧
+    (∀ h : Poly, h.totalDegree ≤ 2 → L ((qPoly - 1) * h) = 0) ∧
+    L cubicPoly = 500753357629 / 500000000000 ∧
+    L (X 0) = 423308963 / 1000000000 ∧
+    L uniqueCubicPoly = 143132860603 / 143000000000 := by sorry
+
+theorem unique_stationary_origin (σ a b : ℝ) (i : Fin 14) :
+    eval (0 : Fin 14 → ℝ) (pderiv i (uniqueQuarticPoly σ a b)) = 0 := by sorry
+
+theorem unique_hessian_origin (σ a b : ℝ) (i j : Fin 14) :
+    eval (0 : Fin 14 → ℝ) (pderiv j (pderiv i (uniqueQuarticPoly σ a b))) =
+      if i = j then -a else 0 := by sorry
+
+theorem unique_hessian_minimizer {σ a b : ℝ} (hσ : 0 < σ) (ha : 0 < a)
+    (i j : Fin 14) :
+    eval (axis (minimizingRadius σ a b))
+      (pderiv j (pderiv i (uniqueQuarticPoly σ a b))) =
+      if i = j then
+        (if i = 0 then 2 * a + 3 * b * minimizingRadius σ a b
+         else if i.val ≤ 4 then b * minimizingRadius σ a b / 1001
+         else 9001 * b * minimizingRadius σ a b / 1001)
+      else 0 := by sorry
+
+theorem unique_hessian_posDef {σ a b : ℝ} (hσ : 0 < σ) (ha : 0 < a) (hb : 0 < b) :
+    Matrix.PosDef (fun i j : Fin 14 =>
+      eval (axis (minimizingRadius σ a b))
+        (pderiv j (pderiv i (uniqueQuarticPoly σ a b)))) := by sorry
+
+theorem uniqueCubicPoly_definition : uniqueCubicPoly =
+    MvPolynomial.C (1 / 1001) * (1000 * cubicPoly + MvPolynomial.X 0 * qPoly) := by sorry
+
+theorem uniqueCubic_definition (z : Fin 14 → ℝ) :
+    uniqueCubic z = MvPolynomial.eval z uniqueCubicPoly := by sorry
+
+theorem uniqueQuarticPoly_definition (σ a b : ℝ) : uniqueQuarticPoly σ a b =
+    MvPolynomial.C (σ / 4) * qPoly ^ 2 - MvPolynomial.C (a / 2) * qPoly
+      - MvPolynomial.C b * uniqueCubicPoly := by sorry
+
+theorem uniqueObjective_definition (σ a b : ℝ) (z : Fin 14 → ℝ) :
+    uniqueObjective σ a b z = MvPolynomial.eval z (uniqueQuarticPoly σ a b) := by sorry
+
+theorem uniqueSeparation_definition : uniqueSeparation = 132860603 / 143000000000 := by sorry
 
 end PersistentSOS

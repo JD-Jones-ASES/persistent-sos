@@ -176,6 +176,13 @@ second derivatives at the origin directly.
 
 ## Scope
 
+The companion theorem in [UniqueMinimizer.md](UniqueMinimizer.md) replaces
+the cubic by $`(1000C+tQ)/1001`$. It retains the same certificate and
+minimum formula while making the minimizer unique with positive-definite
+Hessian. Its exact polynomial statement is also included in the formal
+contract. [RadialConsequences.md](RadialConsequences.md) gives further
+written deductions with their hypotheses and endpoints.
+
 The proof supplies a fixed explicit rational example, its exact minimum,
 and a strict quantitative SOS gap for all positive real parameters. It
 does not determine the optimal SOS lower bound or the smallest dimension
