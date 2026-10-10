@@ -1,0 +1,59 @@
+/-
+Copyright (c) 2026 JD Jones. All rights reserved.
+Released under the MIT license as described in the file LICENSE.
+-/
+module
+
+public import PersistentSOS.Definitions
+public import Mathlib.LinearAlgebra.Finsupp.LinearCombination
+
+@[expose] public section
+namespace PersistentSOS
+open MvPolynomial
+open scoped BigOperators
+
+/-- A complete finite list of monomials of degree at most two spans every
+quadratic polynomial. Repeated entries in the list are allowed. -/
+theorem quadratic_eq_sum_monomials {ι : Type*} [Fintype ι]
+    (basis : ι → (Fin 14 →₀ ℕ))
+    (hcover : ∀ d : Fin 14 →₀ ℕ, d.sum (fun _ n => n) ≤ 2 → ∃ i, basis i = d)
+    (p : Poly) (hp : p.totalDegree ≤ 2) :
+    ∃ x : ι → ℝ, p = ∑ i, x i • (monomial (basis i) (1 : ℝ) : Poly) := by
+  classical
+  suffices hmem : p ∈ Submodule.span ℝ
+      (Set.range fun i => (monomial (basis i) (1 : ℝ) : Poly)) by
+    obtain ⟨x, hx⟩ := (Submodule.mem_span_range_iff_exists_fun ℝ).mp hmem
+    exact ⟨x, hx.symm⟩
+  rw [p.as_sum]
+  apply Submodule.sum_mem
+  intro d hd
+  obtain ⟨i, hi⟩ := hcover d ((le_totalDegree hd).trans hp)
+  rw [← hi]
+  have hmem : (monomial (basis i) (1 : ℝ) : Poly) ∈
+      Submodule.span ℝ (Set.range fun j => (monomial (basis j) (1 : ℝ) : Poly)) :=
+    Submodule.subset_span (Set.mem_range_self i)
+  simpa only [smul_monomial, smul_eq_mul, mul_one] using
+    Submodule.smul_mem _ (p.coeff (basis i)) hmem
+
+/-- Positivity of the genuine monomial moment matrix implies positivity
+on the square of every quadratic polynomial. -/
+theorem nonneg_quadratic_square_of_momentMatrix {ι : Type*} [Fintype ι]
+    (basis : ι → (Fin 14 →₀ ℕ))
+    (hcover : ∀ d : Fin 14 →₀ ℕ, d.sum (fun _ n => n) ≤ 2 → ∃ i, basis i = d)
+    (L : Poly →ₗ[ℝ] ℝ)
+    (hpsd : ∀ x : ι → ℝ,
+      0 ≤ ∑ i, ∑ j, x i * L (monomial (basis i + basis j) 1) * x j)
+    (p : Poly) (hp : p.totalDegree ≤ 2) : 0 ≤ L (p ^ 2) := by
+  classical
+  obtain ⟨x, rfl⟩ := quadratic_eq_sum_monomials basis hcover p hp
+  convert hpsd x using 1
+  rw [pow_two, Finset.sum_mul]
+  simp_rw [Finset.mul_sum, map_sum, smul_mul_smul_comm, map_smul,
+    monomial_mul_monomial, one_mul, smul_eq_mul]
+  congr 1
+  ext i
+  congr 1
+  ext j
+  ring
+
+end PersistentSOS

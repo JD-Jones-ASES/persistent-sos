@@ -1,0 +1,76 @@
+module
+
+public import Mathlib.Algebra.MvPolynomial.CommRing
+public import Mathlib.Analysis.InnerProductSpace.PiL2
+public import Mathlib.Analysis.SpecialFunctions.Sqrt
+public import Mathlib.Tactic
+
+@[expose] public section
+
+namespace PersistentSOS
+
+/-- Ordinary real multivariate polynomials in fourteen variables. -/
+abbrev Poly := MvPolynomial (Fin 14) ℝ
+
+/-- The squared Euclidean norm polynomial, the sum of all coordinate squares. -/
+noncomputable def qPoly : Poly := ∑ i, MvPolynomial.X i ^ 2
+
+/-- The fixed sparse rational cubic, in coordinate order `(t,x₁,…,x₄,y₁,…,y₉)`. -/
+noncomputable def cubicPoly : Poly :=
+  MvPolynomial.X 0 ^ 3
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 5 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 6 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 7 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 8 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 9 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 10 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 11 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 12 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 13 ^ 2
+  + MvPolynomial.C (3 / 2) * MvPolynomial.X 0 * MvPolynomial.X 1 ^ 2
+  + MvPolynomial.C (3 / 2) * MvPolynomial.X 0 * MvPolynomial.X 2 ^ 2
+  + MvPolynomial.C (3 / 2) * MvPolynomial.X 0 * MvPolynomial.X 3 ^ 2
+  + MvPolynomial.C (3 / 2) * MvPolynomial.X 0 * MvPolynomial.X 4 ^ 2
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 5 * MvPolynomial.X 1 ^ 2
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 6 * MvPolynomial.X 2 ^ 2
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 7 * MvPolynomial.X 3 ^ 2
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 8 * MvPolynomial.X 1 * MvPolynomial.X 2
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 8 * MvPolynomial.X 3 * MvPolynomial.X 4
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 9 * MvPolynomial.X 1 * MvPolynomial.X 3
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 9 * MvPolynomial.X 2 * MvPolynomial.X 4
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 10 * MvPolynomial.X 2 * MvPolynomial.X 3
+  + MvPolynomial.C (1813 / 500) * MvPolynomial.X 11 * MvPolynomial.X 1 * MvPolynomial.X 4
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 12 * MvPolynomial.X 2 * MvPolynomial.X 4
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 13 * MvPolynomial.X 3 * MvPolynomial.X 4
+
+/-- Evaluation of the squared Euclidean norm polynomial at a real vector. -/
+noncomputable def Q (z : Fin 14 → ℝ) : ℝ := MvPolynomial.eval z qPoly
+/-- Evaluation of the fixed cubic polynomial at a real vector. -/
+noncomputable def C (z : Fin 14 → ℝ) : ℝ := MvPolynomial.eval z cubicPoly
+/-- Euclidean radius, written as the square root of the sum of coordinate squares. -/
+noncomputable def radius (z : Fin 14 → ℝ) : ℝ := Real.sqrt (Q z)
+
+/-- Ordinary SOS: a finite sum of squares of arbitrary real polynomials. -/
+def IsSOS (p : Poly) : Prop :=
+  ∃ (m : ℕ) (f : Fin m → Poly), p = ∑ i, (f i) ^ 2
+
+/-- Euclidean quartic regularization with quadratic coefficient -a/2 and cubic -bC. -/
+noncomputable def quarticPoly (σ a b : ℝ) : Poly :=
+  MvPolynomial.C (σ / 4) * qPoly ^ 2 - MvPolynomial.C (a / 2) * qPoly
+    - MvPolynomial.C b * cubicPoly
+
+/-- The real-valued function obtained by evaluating the quartic polynomial. -/
+noncomputable def objective (σ a b : ℝ) (z : Fin 14 → ℝ) : ℝ :=
+  MvPolynomial.eval z (quarticPoly σ a b)
+
+/-- The point on the distinguished coordinate axis with first coordinate `r`. -/
+def axis (r : ℝ) : Fin 14 → ℝ := fun i => if i = 0 then r else 0
+
+@[simp] theorem Q_eq_sum (z : Fin 14 → ℝ) : Q z = ∑ i, z i ^ 2 := by
+  simp [Q, qPoly, map_sum]
+
+@[simp] theorem objective_eq (σ a b : ℝ) (z : Fin 14 → ℝ) :
+    objective σ a b z = σ / 4 * Q z ^ 2 - a / 2 * Q z - b * C z := by
+  simp [objective, quarticPoly, Q, C]
+
+end PersistentSOS

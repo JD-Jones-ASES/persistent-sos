@@ -1,0 +1,63 @@
+module
+
+public import PersistentSOS.Main
+
+@[expose] public section
+namespace PersistentSOS
+
+/-- The norm polynomial uses every Euclidean coordinate once. -/
+theorem qPoly_definition : qPoly = ∑ i : Fin 14, MvPolynomial.X i ^ 2 := rfl
+
+/-- Literal coefficients of the fixed cubic. -/
+theorem cubicPoly_definition : cubicPoly =
+  MvPolynomial.X 0 ^ 3
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 5 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 6 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 7 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 8 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 9 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 10 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 11 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 12 ^ 2
+  - 3 * MvPolynomial.X 0 * MvPolynomial.X 13 ^ 2
+  + MvPolynomial.C (3 / 2) * MvPolynomial.X 0 * MvPolynomial.X 1 ^ 2
+  + MvPolynomial.C (3 / 2) * MvPolynomial.X 0 * MvPolynomial.X 2 ^ 2
+  + MvPolynomial.C (3 / 2) * MvPolynomial.X 0 * MvPolynomial.X 3 ^ 2
+  + MvPolynomial.C (3 / 2) * MvPolynomial.X 0 * MvPolynomial.X 4 ^ 2
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 5 * MvPolynomial.X 1 ^ 2
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 6 * MvPolynomial.X 2 ^ 2
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 7 * MvPolynomial.X 3 ^ 2
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 8 * MvPolynomial.X 1 * MvPolynomial.X 2
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 8 * MvPolynomial.X 3 * MvPolynomial.X 4
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 9 * MvPolynomial.X 1 * MvPolynomial.X 3
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 9 * MvPolynomial.X 2 * MvPolynomial.X 4
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 10 * MvPolynomial.X 2 * MvPolynomial.X 3
+  + MvPolynomial.C (1813 / 500) * MvPolynomial.X 11 * MvPolynomial.X 1 * MvPolynomial.X 4
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 12 * MvPolynomial.X 2 * MvPolynomial.X 4
+  + MvPolynomial.C (259 / 100) * MvPolynomial.X 13 * MvPolynomial.X 3 * MvPolynomial.X 4 := rfl
+
+/-- Ordinary finite sums of squares, without a restriction on summand degree. -/
+theorem sos_definition (p : Poly) : IsSOS p ↔
+    ∃ (m : ℕ) (f : Fin m → Poly), p = ∑ i, (f i)^2 := Iff.rfl
+
+/-- The exact quartic polynomial, with ordinary polynomial scalar coefficients. -/
+theorem quarticPoly_definition (σ a b : ℝ) : quarticPoly σ a b =
+    MvPolynomial.C (σ/4)*qPoly^2 - MvPolynomial.C (a/2)*qPoly -
+      MvPolynomial.C b*cubicPoly := rfl
+
+/-- Ordinary polynomial evaluation defines the objective function. -/
+theorem objective_definition (σ a b : ℝ) (z : Fin 14 → ℝ) :
+    objective σ a b z = MvPolynomial.eval z (quarticPoly σ a b) := rfl
+
+/-- Explicit positive minimizing root. -/
+theorem minimizingRadius_definition (σ a b : ℝ) : minimizingRadius σ a b =
+    (3*b + Real.sqrt (9*b^2+4*a*σ))/(2*σ) := rfl
+
+/-- Explicit attained minimum. -/
+theorem minimumValue_definition (σ a b : ℝ) : minimumValue σ a b =
+    -(b*minimizingRadius σ a b^3+a*minimizingRadius σ a b^2)/4 := rfl
+
+/-- Exact rational separation constant. -/
+theorem separation_definition : separation = 753357629 / 500000000000 := rfl
+
+end PersistentSOS

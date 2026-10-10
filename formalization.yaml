@@ -1,0 +1,91 @@
+version: v0.4
+
+project:
+  name: Persistent failure of Euclidean quartic SOS exactness
+  description: >-
+    An explicit rational homogeneous cubic with 25 monomials in 14 real
+    variables has maximum one on the Euclidean unit sphere and admits a
+    positive degree-four moment functional with value
+    500753357629/500000000000. For every positive real regularization parameter,
+    quadratic strength and cubic strength, the associated
+    quartic has an explicitly attained global minimum whose shift is not a
+    sum of squares of real polynomials. A quantitative strict separation bounds
+    every SOS lower bound. The polynomial is stationary at zero with negative
+    definite Hessian. The exact sphere maximizers are classified. The proof
+    combines an elementary quadratic-map contraction, a rational moment
+    certificate, an ordinary SOS degree bound and an all-parameter radial
+    factorization.
+  authors: [JD Jones]
+  responsible_maintainers: [JD Jones]
+  license: MIT
+
+classification:
+  arxiv: [math.OC, math.AG]
+  msc2020: [90C22, 14P10, 90C26]
+
+status:
+  scope: >-
+    Literal real multivariate polynomial statements for the displayed cubic,
+    all positive real parameters, an attained global minimum, unrestricted
+    real polynomial sums of squares, quantitative separation and stationary
+    Hessian. Exact verification status is recorded in VERIFICATION.md.
+  axioms: [propext, Classical.choice, Quot.sound]
+
+sources:
+  - title: Explicit persistent failure of Euclidean quartic SOS exactness
+    type: original-proof
+    relationship: other
+    location: Proof.md
+    note: The explicit theorem and proof are presented in this repository.
+  - title: Sufficiently Regularized Nonnegative Quartic Polynomials are Sum-of-Squares
+    type: paper
+    relationship: background
+    authors: [Coralia Cartis, Wenqi Zhu]
+    id: https://arxiv.org/abs/2601.20418v2
+    note: Remark 2.3 asks about the stationary case with non-PSD Hessian and a general cubic tensor.
+  - title: Extremal Positive Semidefinite Forms
+    type: paper
+    relationship: background
+    authors: [Man-Duen Choi, Tsit-Yuen Lam]
+    id: https://doi.org/10.1007/BF01360024
+    note: The classical Choi-Lam quartic motivates the quadratic-map construction; its nonnegativity is reproved here.
+  - title: A generalization of Cartan's theorem on isoparametric cubics
+    type: paper
+    relationship: background
+    authors: [Vladimir G. Tkachev]
+    id: https://arxiv.org/abs/1001.2387v2
+    note: Section 3 gives an antecedent cubic normal form under stronger quadratic-map identities.
+  - title: Tensor principal component analysis via sum-of-square proofs
+    type: paper
+    relationship: background
+    authors: [Samuel B. Hopkins, Jonathan Shi, David Steurer]
+    id: https://proceedings.mlr.press/v40/Hopkins15.html
+    note: Appendix B supplies asymptotic cubic sphere-gap background; it is not used in the explicit proof.
+
+automation:
+  methods:
+    - method: agent
+      models: [GPT-6]
+      framework: OpenAI Codex
+      tool_setup: OpenAI Codex agents with Lean 4 and Mathlib at the committed revisions.
+      notes: >-
+        Agents developed and reviewed the proof, generated the rational witness,
+        formalized the theorem and checked sources and documentation. Numerical
+        semidefinite optimization guided discovery, while the retained proof
+        uses exact rational data checked in Lean. Independent Python replays
+        support the evidence without becoming proof premises. See Disclosure.md.
+
+review:
+  status: agent-reviewed
+  reviewers: [OpenAI Codex agents]
+  notes: >-
+    Separate automated reviews cover the analytic sphere bound, ordinary SOS
+    degree bridge, moment certificate and formal contract. Exact mechanical
+    verification is recorded in VERIFICATION.md. No human specialist review
+    is asserted.
+
+limitations:
+  - The optimal SOS lower bound and smallest possible dimension are not determined.
+  - Coefficient-neighborhood robustness and large-parameter asymptotics are written supplements.
+  - Higher-order SOS hierarchy behavior is not determined.
+  - Worldwide priority and human specialist review are not established.

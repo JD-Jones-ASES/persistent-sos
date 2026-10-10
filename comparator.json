@@ -1,0 +1,31 @@
+{
+  "challenge_module": "PersistentSOSChallenge",
+  "solution_module": "PersistentSOSSolution",
+  "theorem_names": [
+    "PersistentSOS.radius_eq_norm",
+    "PersistentSOS.cubic_abs_le",
+    "PersistentSOS.unit_sphere_attainment",
+    "PersistentSOS.cubic_unit_maximizers_coordinates",
+    "PersistentSOS.objective_all_minimizers",
+    "PersistentSOS.persistent_failure",
+    "PersistentSOS.minimum_shift_nonnegative",
+    "PersistentSOS.quantitative_sos_gap",
+    "PersistentSOS.sphere_moment_gap",
+    "PersistentSOS.stationary_origin",
+    "PersistentSOS.hessian_origin",
+    "PersistentSOS.qPoly_definition",
+    "PersistentSOS.cubicPoly_definition",
+    "PersistentSOS.sos_definition",
+    "PersistentSOS.quarticPoly_definition",
+    "PersistentSOS.objective_definition",
+    "PersistentSOS.minimizingRadius_definition",
+    "PersistentSOS.minimumValue_definition",
+    "PersistentSOS.separation_definition"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}
