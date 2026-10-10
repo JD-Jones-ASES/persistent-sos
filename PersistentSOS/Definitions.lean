@@ -66,6 +66,16 @@ noncomputable def objective (σ a b : ℝ) (z : Fin 14 → ℝ) : ℝ :=
 /-- The point on the distinguished coordinate axis with first coordinate `r`. -/
 def axis (r : ℝ) : Fin 14 → ℝ := fun i => if i = 0 then r else 0
 
+/-- Positive minimizing radius for quartic regularization with negative quadratic
+strength `a` and positive cubic strength `b`. -/
+noncomputable def minimizingRadius (σ a b : ℝ) : ℝ :=
+  (3 * b + Real.sqrt (9 * b ^ 2 + 4 * a * σ)) / (2 * σ)
+
+/-- Exact minimum, once the cubic has sphere maximum one. -/
+noncomputable def minimumValue (σ a b : ℝ) : ℝ :=
+  -(b * minimizingRadius σ a b ^ 3 + a * minimizingRadius σ a b ^ 2) / 4
+
+
 @[simp] theorem Q_eq_sum (z : Fin 14 → ℝ) : Q z = ∑ i, z i ^ 2 := by
   simp [Q, qPoly, map_sum]
 

@@ -1,19 +1,10 @@
 module
 
-public import Mathlib
+public import PersistentSOS.Definitions
 
 @[expose] public section
 
 namespace PersistentSOS
-
-/-- Positive minimizing radius for quartic regularization with negative quadratic
-strength `a` and positive cubic strength `b`. -/
-noncomputable def minimizingRadius (σ a b : ℝ) : ℝ :=
-  (3 * b + Real.sqrt (9 * b ^ 2 + 4 * a * σ)) / (2 * σ)
-
-/-- Exact minimum, once the cubic has sphere maximum one. -/
-noncomputable def minimumValue (σ a b : ℝ) : ℝ :=
-  -(b * minimizingRadius σ a b ^ 3 + a * minimizingRadius σ a b ^ 2) / 4
 
 /-- The one-variable radial lower envelope. -/
 noncomputable def radialValue (σ a b r : ℝ) : ℝ := σ / 4 * r ^ 4 - b * r ^ 3 - a / 2 * r ^ 2
