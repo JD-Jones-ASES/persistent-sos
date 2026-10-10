@@ -17,7 +17,7 @@ and the rational homogeneous cubic
 C(z)=t^3-3tY^2+\frac32tX^2+\frac{259}{100}\,y\cdot q(x).
 ```
 
-It has 25 monomials. For every $`\sigma,a,b>0`$, put
+It has 25 monomials. For every $`\sigma,a,b\gt 0`$, put
 
 ```math
 P_{\sigma,a,b}(z)=\frac\sigma4Q(z)^2-\frac a2Q(z)-bC(z),
@@ -67,7 +67,7 @@ C(z)\le t^3-3tY^2+\frac32tX^2+\frac{259}{100}YX^2
 ```
 
 The second inequality uses
-$`(259/100)^2=67081/10000<27/4`$. Set $`v=(t+\sqrt3Y)/2`$.
+$`(259/100)^2=67081/10000\lt 27/4`$. Set $`v=(t+\sqrt3Y)/2`$.
 Cauchy–Schwarz implies $`|v|\le1`$, and expansion identifies the final
 expression with $`3v-4v^3`$. Hence
 
@@ -143,7 +143,7 @@ f(s)-\mu=\frac{(s-r)^2}{4}
 ```
 
 All coefficients inside the parentheses are positive:
-$`\sigma r=3b+a/r>3b`$. Equality holds only at $`s=r`$.
+$`\sigma r=3b+a/r\gt 3b`$. Equality holds only at $`s=r`$.
 The axis point $`(r,0,\ldots,0)`$ has $`C=r^3`$, and therefore attains
 $`P=\mu`$. This proves the minimum without an optimization oracle or
 parameter sampling.
@@ -170,7 +170,7 @@ L_r(P_{\sigma,a,b}-\gamma)
 
 If the shifted quartic is SOS, the degree bridge forces this expression
 to be nonnegative, proving the quantitative upper bound on $`\gamma`$.
-At $`\gamma=\mu`$ it equals $`-b\delta r^3<0`$, a contradiction.
+At $`\gamma=\mu`$ it equals $`-b\delta r^3\lt 0`$, a contradiction.
 The terms of degree two, three and four also give the asserted first and
 second derivatives at the origin directly.
 

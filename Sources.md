@@ -14,7 +14,7 @@ That question concerns zero gradient, a Hessian that is not positive
 semidefinite, and a general cubic tensor. The regularizer is
 $`\sigma\|z\|^4/4`$, and exactness means SOS after subtracting the actual
 global minimum. The present example takes the allowed special case
-$`H=-aI`$, $`a>0`$, and fixed cubic $`-bC`$, $`b>0`$. It is distinct from separable
+$`H=-aI`$, $`a\gt 0`$, and fixed cubic $`-bC`$, $`b\gt 0`$. It is distinct from separable
 quartic regularization. It does not contradict sufficient conditions under
 nonzero gradient or positive definite Hessian.
 

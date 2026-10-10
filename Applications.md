@@ -2,14 +2,14 @@
 
 ## Fixed data at every parameter
 
-The theorem permits any fixed $`a,b>0`$ in
+The theorem permits any fixed $`a,b\gt 0`$ in
 
 ```math
 P_{\sigma,a,b}=\frac\sigma4\|z\|^4-\frac a2\|z\|^2-bC(z).
 ```
 
 Its stationary Hessian is always $`-aI_{14}`$ and its cubic is always $`-bC`$.
-The strict gap holds for every $`\sigma>0`$. Thus scaling either fixed
+The strict gap holds for every $`\sigma\gt 0`$. Thus scaling either fixed
 component cannot remove the obstruction by sufficiently large Euclidean
 quartic regularization.
 
@@ -30,7 +30,7 @@ The full unit-sphere maximizing set of $`C`$ is
 ```
 
 Indeed, equality in the sharp sphere-bound proof forces $`YX^2=0`$,
-because $`259/100<3\sqrt3/2`$. If $`Y=0`$, then
+because $`259/100\lt 3\sqrt3/2`$. If $`Y=0`$, then
 $`C=(3t-t^3)/2`$ with $`-1\le t\le1`$; equality at one forces $`t=1`$.
 If $`X=0`$, then $`C=4t^3-3t`$ and
 
@@ -70,7 +70,7 @@ repeated indices. Hence $`|L(E)|\le\varepsilon`$, and
 L(D)-B\ge\delta-2\varepsilon>0.
 ```
 
-For fixed $`a>0`$ and every $`\sigma>0`$, define
+For fixed $`a\gt 0`$ and every $`\sigma\gt 0`$, define
 
 ```math
 r_B=\frac{3B+\sqrt{9B^2+4a\sigma}}{2\sigma},
@@ -80,7 +80,7 @@ r_B=\frac{3B+\sqrt{9B^2+4a\sigma}}{2\sigma},
 The same radial argument gives
 $`\sigma Q^2/4-aQ/2-D\ge\ell_B`$ everywhere. The scaled moment
 functional evaluates this nonnegative shift to at most
-$`-(\delta-2\varepsilon)r_B^3<0`$, so it is not SOS. Coercivity ensures
+$`-(\delta-2\varepsilon)r_B^3\lt 0`$, so it is not SOS. Coercivity ensures
 an attained actual minimum $`m\ge\ell_B`$; shifting by $`m`$ only decreases
 the separating functional, and that shift is also not SOS.
 
@@ -90,7 +90,7 @@ sparse cubic remains the formal package's literal principal example.
 
 ## Large-parameter size of the separation — written supplement
 
-For fixed $`a,b>0`$, the explicit radius satisfies
+For fixed $`a,b\gt 0`$, the explicit radius satisfies
 $`r\sim\sqrt{a/\sigma}`$. Therefore the certified gap has asymptotics
 
 ```math
