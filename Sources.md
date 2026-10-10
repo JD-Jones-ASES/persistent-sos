@@ -12,9 +12,9 @@ revised April 2, 2026. The relevant statement is the third bullet of
 
 That question concerns zero gradient, a Hessian that is not positive
 semidefinite, and a general cubic tensor. The regularizer is
-$\sigma\|z\|^4/4$, and exactness means SOS after subtracting the actual
+$`\sigma\|z\|^4/4`$, and exactness means SOS after subtracting the actual
 global minimum. The present example takes the allowed special case
-$H=-aI$, $a>0$, and fixed cubic $-bC$, $b>0$. It is distinct from separable
+$`H=-aI`$, $`a>0`$, and fixed cubic $`-bC`$, $`b>0`$. It is distinct from separable
 quartic regularization. It does not contradict sufficient conditions under
 nonzero gradient or positive definite Hessian.
 
@@ -26,7 +26,7 @@ Mathematische Annalen **231** (1977), 1–18.
 [original journal scan](https://www.digizeitschriften.de/download/pdf/235181684_0231/log8.pdf).
 
 The form
-$x_1^2x_2^2+x_1^2x_3^2+x_2^2x_3^2+x_4^4-4x_1x_2x_3x_4$
+$`x_1^2x_2^2+x_1^2x_3^2+x_2^2x_3^2+x_4^4-4x_1x_2x_3x_4`$
 is the classical Choi–Lam quartic. Its nonnegativity is reproved here by
 an elementary four-term inequality. Its published non-SOS theorem is not
 used to establish the moment certificate or the main theorem.
@@ -40,12 +40,12 @@ cubics*, Proceedings of the American Mathematical Society **138** (2010),
 [publisher DOI](https://doi.org/10.1090/S0002-9939-10-10385-2).
 
 Section 3, equations (3.1), (3.5) and (3.6), gives the normal form
-$t^3+(3/2)t\|x\|^2-3t\|y\|^2+3\sum_i y_iQ_i(x)$.
+$`t^3+(3/2)t\|x\|^2-3t\|y\|^2+3\sum_i y_iQ_i(x)`$.
 Equations (3.7)–(3.8) impose a quadratic-map identity and additional gradient
-identities. Rescaling $Q_i=(\sqrt3/2)q_i$ gives the coefficient
-$3\sqrt3/2$ in the present cubic layout. Here only the weaker contraction
-$\|q(x)\|\le\|x\|^2$ is needed, and the coefficient is the smaller rational
-$259/100$. No eiconal identity is claimed for this cubic. The normal form
+identities. Rescaling $`Q_i=(\sqrt3/2)q_i`$ gives the coefficient
+$`3\sqrt3/2`$ in the present cubic layout. Here only the weaker contraction
+$`\|q(x)\|\le\|x\|^2`$ is needed, and the coefficient is the smaller rational
+$`259/100`$. No eiconal identity is claimed for this cubic. The normal form
 is established background and is not claimed as new.
 
 ## Broader sphere-gap background

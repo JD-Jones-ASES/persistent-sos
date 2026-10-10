@@ -2,8 +2,8 @@
 
 ## Statement
 
-Use coordinates $z=(t,x_1,x_2,x_3,x_4,y_1,\ldots,y_9)\in\mathbb R^{14}$.
-Write $X=\|x\|$, $Y=\|y\|$, and $Q=t^2+X^2+Y^2=\|z\|^2$. Define
+Use coordinates $`z=(t,x_1,x_2,x_3,x_4,y_1,\ldots,y_9)\in\mathbb R^{14}`$.
+Write $`X=\|x\|`$, $`Y=\|y\|`$, and $`Q=t^2+X^2+Y^2=\|z\|^2`$. Define
 
 ```math
 q(x)=\left(x_1^2,x_2^2,x_3^2,
@@ -17,7 +17,7 @@ and the rational homogeneous cubic
 C(z)=t^3-3tY^2+\frac32tX^2+\frac{259}{100}\,y\cdot q(x).
 ```
 
-It has 25 monomials. For every $\sigma,a,b>0$, put
+It has 25 monomials. For every $`\sigma,a,b>0`$, put
 
 ```math
 P_{\sigma,a,b}(z)=\frac\sigma4Q(z)^2-\frac a2Q(z)-bC(z),
@@ -25,9 +25,9 @@ P_{\sigma,a,b}(z)=\frac\sigma4Q(z)^2-\frac a2Q(z)-bC(z),
 \qquad \mu=-\frac{br^3+ar^2}{4}.
 ```
 
-**Theorem.** The global minimum of $P_{\sigma,a,b}$ is $\mu$, attained at
-$(r,0,\ldots,0)$. Its minimum shift is nonnegative but is not a sum of
-squares of real polynomials. More quantitatively, if $P_{\sigma,a,b}-\gamma$
+**Theorem.** The global minimum of $`P_{\sigma,a,b}`$ is $`\mu`$, attained at
+$`(r,0,\ldots,0)`$. Its minimum shift is nonnegative but is not a sum of
+squares of real polynomials. More quantitatively, if $`P_{\sigma,a,b}-\gamma`$
 is SOS, then
 
 ```math
@@ -35,8 +35,8 @@ is SOS, then
 \qquad \delta=\frac{753357629}{500000000000}>0.
 ```
 
-At the origin the gradient vanishes and the Hessian is $-aI_{14}$.
-The parameters $a,b$ may be fixed independently of $\sigma$.
+At the origin the gradient vanishes and the Hessian is $`-aI_{14}`$.
+The parameters $`a,b`$ may be fixed independently of $`\sigma`$.
 
 ## Quadratic-map contraction
 
@@ -47,19 +47,19 @@ F(x)=x_1^2x_2^2+x_1^2x_3^2+x_2^2x_3^2+x_4^4-4x_1x_2x_3x_4.
 ```
 
 The arithmetic-geometric mean inequality applied to its first four terms
-shows $F(x)\ge0$: their product is $(x_1x_2x_3x_4)^4$.
+shows $`F(x)\ge0`$: their product is $`(x_1x_2x_3x_4)^4`$.
 Direct expansion gives
 
 ```math
 X^4-\|q(x)\|^2=F(x)+\frac1{25}x_1^2x_4^2\ge0.
 ```
 
-Consequently $\|q(x)\|\le X^2$. The known non-SOS property of $F$ is
+Consequently $`\|q(x)\|\le X^2`$. The known non-SOS property of $`F`$ is
 not needed in this argument or in the certificate below.
 
 ## Sharp sphere bound
 
-Suppose $Q(z)=1$. Cauchy–Schwarz and the contraction bound give
+Suppose $`Q(z)=1`$. Cauchy–Schwarz and the contraction bound give
 
 ```math
 C(z)\le t^3-3tY^2+\frac32tX^2+\frac{259}{100}YX^2
@@ -67,29 +67,29 @@ C(z)\le t^3-3tY^2+\frac32tX^2+\frac{259}{100}YX^2
 ```
 
 The second inequality uses
-$(259/100)^2=67081/10000<27/4$. Set $v=(t+\sqrt3Y)/2$.
-Cauchy–Schwarz implies $|v|\le1$, and expansion identifies the final
-expression with $3v-4v^3$. Hence
+$`(259/100)^2=67081/10000<27/4`$. Set $`v=(t+\sqrt3Y)/2`$.
+Cauchy–Schwarz implies $`|v|\le1`$, and expansion identifies the final
+expression with $`3v-4v^3`$. Hence
 
 ```math
 1-(3v-4v^3)=(v+1)(2v-1)^2\ge0.
 ```
 
-Thus $C\le1$ on the sphere. Oddness gives $C\ge-1$ there, and
-$C(1,0,\ldots,0)=1$ proves attainment. Homogeneity now gives
+Thus $`C\le1`$ on the sphere. Oddness gives $`C\ge-1`$ there, and
+$`C(1,0,\ldots,0)=1`$ proves attainment. Homogeneity now gives
 
 ```math
 |C(z)|\le\|z\|^3\qquad(z\in\mathbb R^{14}).
 ```
 
-This proof allows any quadratic map with $\|q(x)\|\le\|x\|^2$ and
-any cross coefficient in $[0,3\sqrt3/2]$. The strict moment gap below is
+This proof allows any quadratic map with $`\|q(x)\|\le\|x\|^2`$ and
+any cross coefficient in $`[0,3\sqrt3/2]`$. The strict moment gap below is
 specific to the displayed rational cubic and rational witness.
 
 ## Exact rational moment witness
 
 The [certificate](certificates/sphere-moments.json) specifies 450 free
-moments with denominator $10^9$. It defines a real linear functional $L$
+moments with denominator $`10^9`$. It defines a real linear functional $`L`$
 on polynomials through degree four. Moments of a monomial are assigned
 once, so equal products have equal values. The coordinate sign characters
 are
@@ -110,9 +110,9 @@ every monomial of degree at most two. These are identities of a truncated
 functional; no representing probability measure is asserted.
 
 The complete moment matrix is indexed by the 120 monomials of degree at
-most two. Its one forced null direction is $Q-1$. On the quotient, the
+most two. Its one forced null direction is $`Q-1`$. On the quotient, the
 sign characters split it into eight rational positive-definite blocks with
-sizes $27,11,11,11,11,16,16,16$. Exact elimination proves positivity.
+sizes $`27,11,11,11,11,16,16,16`$. Exact elimination proves positivity.
 The full matrix is the congruence lift from that quotient. The verified
 finite identities yield
 
@@ -128,14 +128,14 @@ eigenvalues and numerical optimizer status establish none of these claims.
 
 ## The exact minimum
 
-For $s=\|z\|$, the sphere bound gives
+For $`s=\|z\|`$, the sphere bound gives
 
 ```math
 P_{\sigma,a,b}(z)\ge f(s):=\frac\sigma4s^4-bs^3-\frac a2s^2.
 ```
 
-The displayed radius is positive and satisfies $\sigma r^2=3br+a$.
-In particular $f(r)=\mu$. An exact factorization gives, for every $s\ge0$,
+The displayed radius is positive and satisfies $`\sigma r^2=3br+a`$.
+In particular $`f(r)=\mu`$. An exact factorization gives, for every $`s\ge0`$,
 
 ```math
 f(s)-\mu=\frac{(s-r)^2}{4}
@@ -143,23 +143,23 @@ f(s)-\mu=\frac{(s-r)^2}{4}
 ```
 
 All coefficients inside the parentheses are positive:
-$\sigma r=3b+a/r>3b$. Equality holds only at $s=r$.
-The axis point $(r,0,\ldots,0)$ has $C=r^3$, and therefore attains
-$P=\mu$. This proves the minimum without an optimization oracle or
+$`\sigma r=3b+a/r>3b`$. Equality holds only at $`s=r`$.
+The axis point $`(r,0,\ldots,0)`$ has $`C=r^3`$, and therefore attains
+$`P=\mu`$. This proves the minimum without an optimization oracle or
 parameter sampling.
 
 ## Ordinary polynomial SOS exclusion
 
 If a real polynomial of total degree at most four is a finite sum
-$\sum_j h_j^2$, then every $h_j$ has degree at most two. For example,
+$`\sum_j h_j^2`$, then every $`h_j`$ has degree at most two. For example,
 order monomials by a graded lexicographic order. In each nonzero square,
 the leading coefficient is the square of a nonzero real number and is
 strictly positive. The largest leading monomial among the squares therefore
 cannot cancel in their sum. Its total degree is twice the largest summand
 degree. This also handles zero summands.
 
-Define the scaled functional $L_r(p)=L(p(rz))$. Scaling preserves the
-degree of a quadratic, so $L_r$ is nonnegative on every quadratic square.
+Define the scaled functional $`L_r(p)=L(p(rz))`$. Scaling preserves the
+degree of a quadratic, so $`L_r`$ is nonnegative on every quadratic square.
 Using the exact radial moments and the cubic moment,
 
 ```math
@@ -169,8 +169,8 @@ L_r(P_{\sigma,a,b}-\gamma)
 ```
 
 If the shifted quartic is SOS, the degree bridge forces this expression
-to be nonnegative, proving the quantitative upper bound on $\gamma$.
-At $\gamma=\mu$ it equals $-b\delta r^3<0$, a contradiction.
+to be nonnegative, proving the quantitative upper bound on $`\gamma`$.
+At $`\gamma=\mu`$ it equals $`-b\delta r^3<0`$, a contradiction.
 The terms of degree two, three and four also give the asserted first and
 second derivatives at the origin directly.
 
