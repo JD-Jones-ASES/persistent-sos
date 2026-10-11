@@ -84,7 +84,7 @@ automation:
         semidefinite optimization guided discovery, while the retained proof
         uses exact rational data checked in Lean. Independent Python replays
         support the evidence without becoming proof premises. See Disclosure.md.
-    - method: mathematical consultation
+    - method: other
       models: [GPT-6 Pro]
       framework: ChatGPT
       notes: >-
